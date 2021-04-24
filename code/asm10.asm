@@ -1,6 +1,6 @@
 ; 子程序练习
 ; 设计一个子程序，通过主程序传入一个整数n，循环输出n次字符串
-; 用寄存器传递参数
+; 用栈传递参数
 data segment
     str db 'hello world!', 0dh, 0ah, '$'
 data ends
