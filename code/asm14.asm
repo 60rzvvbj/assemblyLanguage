@@ -1,4 +1,5 @@
-; 子程序练习
+; 子程序练习，双重循环练习
+; 编写程序，实现冒泡排序
 data segment
     arr dw 5, 3 ,1, 4, 2
     len equ $-arr
