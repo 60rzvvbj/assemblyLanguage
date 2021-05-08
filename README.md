@@ -1,4 +1,5 @@
-### Assembly language exercises
+### 汇编语言
+本项目中包含作者平时练习的代码和运行汇编相关的工具文件
 
 ##### [关于汇编环境的配置和工具包的说明](/util/README.md)
 
