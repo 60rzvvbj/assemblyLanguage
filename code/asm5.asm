@@ -13,7 +13,7 @@ start:
     xor cx, cx
     mov cx, x
 flag:
-    mov dx, 0h
+    mov dx, offset x
     mov ah, 09h
     int 21h
     add cl, 1h
