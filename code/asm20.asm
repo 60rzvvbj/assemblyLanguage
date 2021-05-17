@@ -1,6 +1,6 @@
-; 判断一个数是否为素数
+; 打印num之内的素数
 data segment
-    num dw 100
+    num dw 30
     res db '00000$'
     line db 0dh, 0ah, '$'
 data ends
