@@ -1,6 +1,6 @@
 data segment
     res db '00000$'
-    num dw 123
+    num dw 3
 data ends
 stack1 segment para stack
     dw 20h dup(0)
@@ -29,7 +29,7 @@ printInt proc
     mov bp, sp
     mov ax, [bp + 14]
     ; 循环
-cyc:
+printIntCyc:
     sub si, 01h
     mov cx, 000ah
     xor dx, dx
@@ -37,19 +37,20 @@ cyc:
     add dl, 48
     mov [bx][si], dl
     cmp si, 0000h
-    ja cyc
+    ja printIntCyc
     ; 结束循环
     mov bx, offset res
-    sub bx, 1
-judge:
-    add bx, 1
-    cmp bx, 0005h
-    je over
-    mov al, [bx]
+    mov si, -1
+printIntJudge:
+    add si, 1
+    cmp si, 0004h
+    je printIntOver
+    mov al, [bx][si]
     cmp al, 48
-    je judge
-over:
+    je printIntJudge
+printIntOver:
     mov dx, bx
+    add dx, si
     mov ah, 09h
     int 21h
     ; 恢复状态

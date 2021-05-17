@@ -41,6 +41,6 @@ over:
     pop dx
     pop ax
     ret
-code ends
 show endp
+code ends
 end start

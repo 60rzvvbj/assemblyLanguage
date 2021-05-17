@@ -51,16 +51,17 @@ printIntCyc:
     ja printIntCyc
     ; 结束循环
     mov bx, offset res
-    sub bx, 1
+    mov si, -1
 printIntJudge:
-    add bx, 1
-    cmp bx, 0005h
+    add si, 1
+    cmp si, 0004h
     je printIntOver
-    mov al, [bx]
+    mov al, [bx][si]
     cmp al, 48
     je printIntJudge
 printIntOver:
     mov dx, bx
+    add dx, si
     mov ah, 09h
     int 21h
     ; 恢复状态
