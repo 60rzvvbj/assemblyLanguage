@@ -1,17 +1,8 @@
-; 已知数组A包含20个互不相等的整数，数组B包含20个互不相等的整数。
-; 编程，把既在数组A中又在数组B中出现的整数存放与数组C，并显示数组C中数据的个数。（用十进制显示）
+; 输出两个数的最大公约数
 data segment
-    A dw 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-    ; A dw 1, 2, 3
-    Alen equ $-A
-    B dw 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    ; B dw 3, 4
-    Blen equ $-B
-    C dw 20 dup(0)
+    A dw 108
+    B dw 66
     printIntRes db '00000$'
-    AIndex dw ?
-    BIndex dw ?
-    CIndex dw ?
 data ends
 stack1 segment para stack
     dw 20h dup(0)
@@ -21,45 +12,37 @@ code segment
 start:
     mov ax, data
     mov ds, ax
-    mov ax, 0h
-    mov AIndex, ax
-    mov CIndex, ax
-outer:
-    mov ax, 0h
-    mov BIndex, ax
-    mov si, AIndex
-    mov ax, A[si]
-inner:
-    mov si, BIndex
-    mov bx, B[si]
-
-    cmp ax, bx
-    jne nowCycOver
-    mov si, CIndex
-    mov C[si], ax
-    add si, 2
-    mov CIndex, si
-
-nowCycOver:
-    mov si, BIndex
-    add si, 2
-    mov BIndex, si
-    cmp si, Blen
-    jne inner
-
-    mov si, AIndex
-    add si, 2
-    mov AIndex, si
-    cmp si, Alen
-    jne outer
-
-    mov ax, CIndex
-    shr ax, 1
+    mov ax, A
+    push ax
+    mov ax, B
+    push ax
+    call gcd
     push ax
     call printInt
-    
     mov ah, 4ch
     int 21h
+gcd proc 
+    ; 保存状态
+    push cx
+    push dx
+    push bp
+    mov bp, sp
+    mov ax, [bp + 10]
+    mov cx, [bp + 8]
+    cmp cx, 0
+    je gcdOver
+    push cx
+    xor dx, dx
+    div cx
+    push dx
+    call gcd
+gcdOver:
+    pop bp
+    pop dx
+    pop cx
+    ret 4
+    ; 恢复状态
+gcd endp
 printInt proc
     ; 保存状态
     push ax
